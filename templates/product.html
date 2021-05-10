@@ -1,0 +1,214 @@
+{% extends 'base.html'%}
+
+{% block head %}
+
+<title>Bewertung</title>
+
+<!--css für Review Button-->
+<style>
+    .bewertung{
+        display: flex;
+}
+    .rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+
+}
+
+.rating>input {
+    opacity: 0.0;
+}
+
+.rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 220%;
+    color: #FFD600;
+    cursor: pointer
+}
+
+/* kommentar*/
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<!--Script für Wortzähler für Gesamteindruck 'feel' -->
+<!-- 5 - 10 Wörter benötigt um Weiter zu gelangen -->
+<script>
+function wordcounter() {
+    var str = document.getElementById('feel').value;
+    var wordCount = str.match(/(\w+)/g).length;
+    if (wordCount <4) {
+        document.getElementById('require').innerHTML= 5-wordCount + " Wörter fehlen noch!";
+        document.getElementById('require').className= "alert alert-danger btn-block";
+        document.getElementById('sub').style.display = "none";
+        }
+    if (wordCount === 4) {
+        document.getElementById('require').innerHTML= "1 Wort fehlt noch!";
+        document.getElementById('require').className= "alert alert-danger btn-block";
+        document.getElementById('sub').style.display = "none";
+        }
+    if (wordCount >=5 && wordCount <11){
+        document.getElementById('require').innerHTML= "Sehr gut!";
+        document.getElementById('require').className= "alert alert-success btn-block";
+        document.getElementById('sub').style.display = "block";
+
+        }
+    if (wordCount >=11 ){
+        document.getElementById('require').innerHTML= "Achtung - Zu viele Wörter";
+        document.getElementById('require').className= "alert alert-danger btn-block";
+        document.getElementById('sub').style.display = "none";
+    }
+}
+
+</script>
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h1></h1>
+
+<div class="jumbotron bg-dark text-white">
+    <div class="col-sm-8 mx-auto">
+
+        <h3> Bewertung {{art1}}!</h3>
+        <hr>
+        <!--Nur für Online-Testung relevant.
+        <p>Mit deinem persönlichen Code <b class="text-primary"> {{usr.code}} </b> kannst du auch später noch
+            weitere Bewertungen hinzufügen, ohne erneut den Fragebogen ausfüllen zu müssen.<br>
+            Kopiere dazu einfach den folgenden Link:
+        </p>
+
+        <small>
+            <p class="font-italic" id="link">
+                http://reviews.pythonanywhere.com/neu/<b class="text-primary">{{usr.code}}</b>
+            </p>
+        </small>
+        --->
+        <br>
+        <p> Wähle bitte möglichst ein bekanntes Produkt / Dienstleistung / Erlebnis aus,
+            um den Prototypen im Anschluss besser überprüfen zu können.</p>
+
+            <!-- Hinweise...-->
+        <div>
+            <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="collapse"
+                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Hinweise...
+            </button>
+
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card-header">
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-outline-danger btn-sm " type="button" href="/product/{{user}}"> x </a></div>
+            </div>
+            <div class="card card-body">
+                <p style="color:black"> Da es sich hier um einen <b>Prototypen</b> handelt und keine Datenbank
+                    für die zu bewertenden Produkte hinterlegt ist, ist es wichtig die Produktbeschreibung
+                    so zu verfassen, wie du danach googlen würdest.
+                    <br>
+                    Das ist wichtig, damit ich die angegebenen Bewertungen im Rahmen meiner Masterarbeit mit bereits bestehenden
+                    Bewertungen vergleichen kann.</p>
+                <p style="color:black"> Bitte sei dabei so <b> präzise</b> wie möglich und verwende eine <b>eindeutige
+                    Produktbeschreibung.</b></p>
+
+                <p style="color:black"> Bei einem <b>Buch</b> kannst du z. B. entweder den Titel oder optimalerweise die
+                    ISBN eintragen. </p>
+                <p style="color:black"> Bei einer <b>Reise</b> kannst du bspw. bekannte Orte, Hotels oder eine
+                    Routenbeschreibung angeben.</p>
+                <p style="color:black"> Bei einer <b>Serie</b> kannst du z. B. den Titel, wie 'House of Cards' angeben
+                    und ggf. nach Staffel oder Folge weiter spezifizieren.</p>
+                <p style="color:black"> Bei einer <b>Essenslieferung</b> kannst du einfach den Lieferanten deiner Wahl,
+                    möglichst inkl.
+                    Ort und dem dort bestellten Essen z. B. 'Pizza-Salami bei Giovanni in Herrenhausen', angeben.</p>
+            </div>
+        </div>
+
+
+        <form action='/product/{{user}}' method='post'>
+            <br>
+
+
+            <!-- ISBN Finder einbauen??-->
+            <!--
+            {% if post.product_art == 0 %}
+            <div><a class="btn btn-secondary btn-sm" href='/title_isbn'> >ISBN nicht zur Hand?< </a></div>
+            {% endif %}
+            -->
+            <p>Über welche{% if post.product_art == 0 %}s{% endif %} {{art}} möchtest du eine Bewertung abgeben?</p>
+            <input class="form-control" type="text" name='product' id='product' required
+                   placeholder="ISBN/Titel/Serienname/Lieferdienst/Reiseort..." data-toggle="tooltip"
+                   data-placement="top" title="Bewertendes 'Produkt' eingeben...">
+            <br>
+
+
+            Wie viele Sterne würdest du der Erfahrung mit {% if post.product_art == 0 %}dem{%else%}der{% endif %}
+            {{art}} geben?
+
+            <div class="bewertung">
+                <div class="rating">
+                    <input type="radio" required name="rating" value="5" id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                </div>
+            </div>
+
+            <p>Beschreibe deinen Gesamteindruck mit wenigen Worten (5-10 Wörter):</p>
+            <input class="form-control" type="text" name='feel' id='feel' required placeholder="Gesamteindruck.."
+                   aria-label="Gesamteindruck..." onkeydown="wordcounter();">
+
+            <button type="button" class="alert alert-danger btn-block" id="require">
+                5-10 Wörter benötigt!
+            </button>
+
+            <br>
+            <div class="d-flex justify-content-end">
+                <input class="btn btn-primary" type="submit" id="sub" value='weiter' style="display:none">
+            </div>
+        </form>
+        <hr>
+        {% endblock %}
+
+        {% block progress %}10%{% endblock %}
+        {% block progress1 %}10{% endblock %}
+        {% block progress2 %}10{% endblock %}
+    </div>
+</div>
+

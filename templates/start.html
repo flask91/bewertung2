@@ -1,0 +1,304 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>Informationen</title>
+
+<!-- Div ein- und ausblenden-->
+<script>
+function showDiv(id) {
+  document.getElementById(id).style.display = "block";
+}
+function hideDiv(id) {
+ document.getElementById(id).style.display = "none";
+}
+
+</script>
+<!-- Style von den Buttons Alter
+radiobutton ausblenden, label erstellen, vor der Auswahl und nach der Auswahl, Hover
+-->
+<style>
+.toggle-buttons input[type="radio"]{
+opacity: 0.0;
+}
+.toggle-buttons label {
+  border: 1px solid #6c757d;
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+.toggle-buttons input:checked + label {
+  background: #007bff;
+  color: #fff;
+  box-shadow: none;
+}
+
+.toggle-buttons :hover{
+background: #007bff;
+}
+
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h1>Informationen</h1>
+<br>
+<div class="">
+    <div class="col-sm-8 mx-auto">
+        <h3>Vielen Dank für die Teilnahme an der Überprüfung des Prototypen!</h3>
+        <p>Bevor es los geht, benötige ich bitte noch ein paar Informationen von dir.</p>
+        <p>Alle Daten werden nur für wissenschaftliche Zwecke im Rahmen meiner Masterarbeit verwendet und
+            anonymisiert.</p>
+        <hr>
+
+        <!-- Formular Info Tester Expertiese -->
+
+        <form action='/start' method='post'>
+
+            <!-- Name  -->
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="name" id="name"
+                           placeholder="Max Mustermann (optional)">
+                </div>
+            </div>
+
+            <!-- Alter  -->
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="email" id="email"
+                           placeholder="email@example.com (optional)">
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="alter" class="col-sm-2 col-form-label">Alter:</label>
+                <div class="col-sm-10">
+                    <div class="toggle-buttons together" id="alter">
+                        <input type="radio" value="anonym" id="c0" name="alter" checked required >
+                        <label for="c0"><small>----</small></label>
+                        <input type="radio" value="Unter 18" id="c1" name="alter">
+                        <label for="c1"><18</label>
+                        <input type="radio" value="18-25" id="c2" name="alter">
+                        <label for="c2">18-25</label>
+                        <input type="radio" value="26-35" id="c3" name="alter">
+                        <label for="c3">26-35</label>
+                        <input type="radio" value="36-45" id="c4" name="alter">
+                        <label for="c4">36-45</label>
+                        <input type="radio" value="46-55" id="c5" name="alter">
+                        <label for="c5">46-55</label>
+                        <input type="radio" value="Über 55" id="c6" name="alter">
+                        <label for="c6">>55</label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Genderauswahl -->
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2">Geschlecht</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="gender1" value="0"
+                                   checked>
+                            <label class="form-check-label" for="gender1">
+                                keine Angabe
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="gender2" value="1">
+                            <label class="form-check-label" for="gender2">
+                                weiblich
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="gender3" value="2">
+                            <label class="form-check-label" for="gender3">
+                                männlich
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gender" id="gender4" value="3">
+                            <label class="form-check-label" for="gender4">
+                                divers
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br>
+            <!-- Bildung -->
+            <div class="form-group">
+                <label for="bildung"> Was ist dein höchster Bildungsabschluss?</label>
+                <select class="form-control" name="bildung" id="bildung">
+                    <option name="bildung" value=0 selected>Bitte wählen..</option>
+                    <option name="bildung" value=0> Kein Abschluss</option>
+                    <option name="bildung" value=1> Volks-/ Hauptschule </option>
+                    <option name="bildung" value=2> Weiterführende Schule ohne Abitur</option>
+                    <option name="bildung" value=3> Abitur / Hochschulreife</option>
+                    <option name="bildung" value=4> Ausbildung</option>
+                    <option name="bildung" value=5> Fach-/Hochschule</option>
+                    <option name="bildung" value=6> Bachelor</option>
+                    <option name="bildung" value=7> Master</option>
+                    <option name="bildung" value=8> Promotion</option>
+                </select>
+            </div>
+            <hr>
+            <br>
+            <!-- Abfrage zur Expertiese: -->
+
+            <div class="form-group">
+                <label for="anz_best">Wie oft bestellst du Produkte online?</label>
+                <select class="form-control" name="anz_best" id="anz_best">
+                    <option name="anz_best" value=4>Jede Woche</option>
+                    <option name="anz_best" value=3>Mehrmals im Monat</option>
+                    <option name="anz_best" value=2>Nicht jeden Monat</option>
+                    <option name="anz_best" value=1>Weniger als 6 Mal im Jahr</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="anz_les">Wie oft liest du Online-Rezensionen vor einem Kauf?</label>
+                <select class="form-control" name="anz_les" id="anz_les">
+                    <option value="4">Jedes Mal</option>
+                    <option value="3">Regelmäßig</option>
+                    <option value="2">Hin und wieder</option>
+                    <option value="1">Gar nicht</option>
+                </select>
+            </div>
+
+            <p>Hast du schonmal deine Online-Rezension zu einem Produkt bzw. einer Dienstleistung auf Onlineportalen,
+                wie Amazon, Google, Yelp geteilt?</p>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="bew_prod" value=1
+                       onclick="showDiv('foo');"> Ja
+
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                       checked onclick="hideDiv('foo');"> Nein
+            </div>
+
+
+            <div id="foo" style="display: none;">
+                <p> Falls ja, wie regelmäßig gibst du eine Online-Rezension ab? </p>
+                <select class="form-control" name="anz_bew_prod" id="anz_bew_prod">
+                    <option value=3>Nach jedem Kauf</option>
+                    <option value=2>Häufig</option>
+                    <option value=1>Regelmäßig</option>
+                    <option value=0 selected>Selten</option>
+                </select>
+            </div>
+            <br>
+            <br>
+            <hr>
+                  <p>Hast du schon einmal eine Bewertung zu den folgenden Punkten verfasst, und wenn ja wie regelmäßig?
+
+
+            <div class="form-check form-check-inline">
+                Buch:
+                <input class="form-check-input" type="radio" name="buch" id="bew_buch" style="margin-left:5em"
+                       onchange="showDiv('anz_bew_buch');"> Ja
+
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="buch" id="bew_buch1"
+                       checked onchange="hideDiv('anz_bew_buch');"> Nein
+            </div>
+
+            <select class="form-control" name="anz_bew_buch" id="anz_bew_buch" style="display:none ;">
+                <option value=3>Nach jedem Buch</option>
+                <option value=2>Häufig</option>
+                <option value=1>Regelmäßig</option>
+                <option value=0 selected>Selten</option>
+            </select>
+            <br>
+
+            <div class="form-check form-check-inline">
+                Reise:
+                <input class="form-check-input" type="radio" name="reise" id="bew_reise" style="margin-left:4.85em"
+                       onchange="showDiv('anz_bew_reise');"> Ja
+
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="reise" id="bew_reise1"
+                       checked onchange="hideDiv('anz_bew_reise');"> Nein
+            </div>
+
+            <select class="form-control" name="anz_bew_reise" id="anz_bew_reise" style="display:none ;">
+                <option value=3>Nach jeder Reise</option>
+                <option value=2>Häufig</option>
+                <option value=1>Regelmäßig</option>
+                <option value=0 selected>Selten</option>
+            </select>
+
+            <br>
+
+            <div class="form-check form-check-inline">
+                Serie:
+                <input class="form-check-input" type="radio" name="serie" id="bew_serie" style="margin-left:5em"
+                       onclick="showDiv('anz_bew_serie');"> Ja
+
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="serie" id="bew_serie1"
+                       checked onclick="hideDiv('anz_bew_serie');"> Nein
+            </div>
+            <select class="form-control" name="anz_bew_serie" id="anz_bew_serie" style="display: none;">
+                <option value=3>Immer</option>
+                <option value=2>Häufig</option>
+                <option value=1>Regelmäßig</option>
+                <option value=0 selected>Selten</option>
+            </select>
+            <br>
+
+            <div class="form-check form-check-inline">
+                Essenslieferung:
+                <input class="form-check-input" type="radio" name="essen" id="bew_essen" style="margin-left:6px"
+                       onclick="showDiv('anz_bew_essen');"> Ja
+
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="essen" id="bew_essen1"
+                       checked onclick="hideDiv('anz_bew_essen');"> Nein
+            </div>
+            <select class="form-control" name="anz_bew_essen" id="anz_bew_essen" style="display: none;">
+                <option value=3>Nach jedem gelieferten Essen</option>
+                <option value=2>Häufig</option>
+                <option value=1>Regelmäßig</option>
+                <option value=0 selected>Selten</option>
+            </select>
+
+
+            <hr>
+            <p>Wie würdest du insgesamt deine Fähigkeit zum Erstellen von qualitativ hochwertigen bzw.
+                hilfreichen Bewertungen von Produkten einschätzen?</p>
+
+            <div>
+                <p> 0=Gering - 5=Hoch</p>
+                <input type="range" class="form-range" min="0" max="5" step="1" name="self_expert"
+                       id="self_expert"
+                       oninput="this.nextElementSibling.value = this.value" width="100">
+                <output class="btn btn-outline-primary btn-sm">3</output>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            </div>
+
+
+        </form>
+        {% endblock %}
+
+        {% block progress %}0%{% endblock %}
+        {% block progress1 %}0{% endblock %}
+        {% block progress2 %}0{% endblock %}
+    </div>
+</div>
+
+

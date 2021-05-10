@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>Home</title>
+
+{% endblock %}
+
+{% block body %}
+<br>
+
+<br>
+<div class="jumbotron bg-dark text-white">
+    <div class="col-sm-8 mx-auto">
+        <form action='/neu/{{user}}' method='post'>
+            <h1> Prototyp 2 </h1>
+            <p>Was möchtest du bewerten?</p>
+            <div class="row">
+                <button class="btn btn-primary btn-lg btn-block" name="Buch" value="Buch">&#128218; Buch</button>
+                <button class="btn btn-primary btn-lg btn-block" name="Reise" value="Reise">&#9969; Reise</button>
+                <button class="btn btn-primary btn-lg btn-block" name="Serie" value="Serie">&#128250; Serie</button>
+                <button class="btn btn-primary btn-lg btn-block" name="Essen" value="Essen">&#127829; Essenslieferung
+                </button>
+            </div>
+        </form>
+        <hr>
+        {% endblock %}
+
+        {% block progress %}5%{% endblock %}
+        {% block progress1 %}5{% endblock %}
+        {% block progress2 %}5{% endblock %}
+    </div>
+</div>
+

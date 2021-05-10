@@ -1,0 +1,71 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>Bewertungen</title>
+
+{% endblock %}
+
+{% block body %}
+<br/>
+<h1>Kontrolle</h1>
+
+<hr>
+<div class="jumbotron bg-dark text-white">
+    <div class="col-sm-8 mx-auto">
+
+        <h4 class="text-primary"> Bitte überprüfe nocheinmal deine Nachricht</h4>
+        <p> Hier kannst du die Bewertung noch einmal direkt im Text anpassen und ggf. Rechtschreibfehler korrigieren.
+            Nachdem du deine Bewertung überprüft und angepasst hast, klicke bitte unbedingt auf
+            <button class="btn btn-success btn-sm" style="cursor:auto" disabled>speichern</button>
+            . <br>
+            Im Anschluss kannst du mir ein Feedback hinterlassen. Darüber würde ich mich sehr freuen.
+        </p>
+        <h3> {{post.product}}</h3>
+        {% if post.rating %}
+        <p> Rating:
+            {% if post.rating == 1 %}
+            <b class="text-warning">&#9733;</b> &#9734; &#9734; &#9734; &#9734;
+            {% elif post.rating == 2 %}
+            <b class="text-warning">&#9733; &#9733;</b> &#9734; &#9734; &#9734;
+            {% elif post.rating == 3 %}
+            <b class="text-warning">&#9733; &#9733; &#9733;</b> &#9734; &#9734;
+            {% elif post.rating == 4 %}
+            <b class="text-warning">&#9733; &#9733; &#9733; &#9733;</b> &#9734;
+            {% elif post.rating == 5 %}
+            <b class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733;</b>
+            {% endif %}
+
+            {% else %}
+        <p> keine Sterne Bewertung </p>
+        {% endif %}
+
+
+        {% if post.feel %}
+        <h3> {{post.feel}} </h3>
+        {% endif %}
+
+
+
+        <form action='/vorschau/{{user}}' method='post'>
+            <div>
+            <textarea class="form-control" name='content' id='content' spellcheck="true"
+                      placeholder="zusammenfassung" rows="20">{{post.content}}
+            </textarea>
+            </div>
+            <br>
+            <div class="row justify-content-between">
+                <div class="d-flex">
+                    <a class="btn btn-secondary" href='/vorschau/{{user}}'> zurück</a>
+                </div>
+                <input class="btn btn-success" type="submit" value='speichern'>
+            </div>
+        </form>
+
+        {% endblock %}
+
+
+        {% block progress %}90%{% endblock %}
+        {% block progress1 %}90{% endblock %}
+        {% block progress2 %}90{% endblock %}
+    </div>
+</div>

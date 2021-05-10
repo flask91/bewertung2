@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>Ende</title>
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h1> Dankeschön! </h1>
+<br>
+<div class="jumbotron">
+    <div class="col-sm-8 mx-auto">
+
+        <h1>Vielen Dank für die Teilnahme und dein Feedback!!!</h1>
+
+        <p>Möchtest du eine neue Bewertung schreiben?</p>
+
+        <a class="btn btn-primary" href="/neu/{{user}}">Neu</a>
+
+        <!-- Wird nur Online Angezeigt
+        <p> Den anderen Prototypen kannst du über den folgenden Link testen... </p>
+        <a class="btn btn-secondary" href="http://reviews.pythonanywhere.com/start">Prototyp 1</a>
+        -->
+        {% endblock %}
+
+        {% block progress %}100%{% endblock %}
+        {% block progress1 %}{% endblock %}
+        {% block progress2 %}100{% endblock %}
+    </div>
+
+</div>
+
+

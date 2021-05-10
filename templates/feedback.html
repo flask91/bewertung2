@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+
+{% block head %}
+<title>Review</title>
+{% endblock %}
+
+{% block body %}
+<br/>
+<h1>Vielen Dank für die Teilnahme!</h1>
+
+<hr>
+<div class="jumbotron bg-dark text-white">
+    <div class="col-sm-8 mx-auto">
+        <h1>Bitte schreibe mir unten ein kurzes Feedback! </h1>
+
+        <!-- nur für Online Test relevant.
+        <p> Wenn du später auf deine aktuellste Bewertung zugreifen oder diese später ändern möchtest, kannst du dies
+            über den folgenden Link mit deinem individuellen Code am Ende. <br>
+            <mark> bewertung2.pythonanywhere.com/vorschau/{{usr.code}}</mark>
+        </p>
+        -->
+        <h3> {{post.product}}</h3>
+        {% if post.rating %}
+        <p> Rating:
+            {% if post.rating == 1 %}
+            &#9733; &#9734; &#9734; &#9734; &#9734;
+            {% elif post.rating == 2 %}
+            &#9733; &#9733; &#9734; &#9734; &#9734;
+            {% elif post.rating == 3 %}
+            &#9733; &#9733; &#9733; &#9734; &#9734;
+            {% elif post.rating == 4 %}
+            &#9733; &#9733; &#9733; &#9733; &#9734;
+            {% elif post.rating == 5 %}
+            &#9733; &#9733; &#9733; &#9733; &#9733;
+            {% endif %}
+
+            {% else %}
+        <p> keine Sterne Bewertung </p>
+        {% endif %}
+
+        {% if post.feel %}
+        <h3> {{post.feel}} </h3>
+        {% endif %}
+
+        {{review | safe }}
+
+        <br>
+        <hr>
+        <p> Feedback:</p>
+        <form action='/feedback/{{usr.code}}' method='post'>
+
+        <textarea class=" form-control" name='feedback' id='feedback' required
+                  placeholder="Hat dir die Webapplikation bei dem Schreiben von Bewertungen geholfen?
+                  -Wenn ja, was war gut?
+                  -Wenn nicht, was findest du verbesserungswürdig?"
+                  data-toggle="tooltip" data-placement="top" title="Bitte Feedback eingeben..."
+                  rows="10">{{usr.feedback}}</textarea>
+
+            <input class="btn btn-success" type="submit" value='Absenden' title="speichern">
+        </form>
+
+        {% endblock %}
+        {% block progress %}100%{% endblock %}
+        {% block progress1 %}100{% endblock %}
+        {% block progress2 %}100{% endblock %}
+
+    </div>
+</div>
+
+
